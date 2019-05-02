@@ -59,7 +59,7 @@ public class CrimeFragment extends Fragment {
 
         mDateButton = (Button)v.findViewById(R.id.crime_date);
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 E HH:mm:ss");
         mDateButton.setText(format.format(mCrime.getDate()));
 
         mDateButton.setEnabled(false);
