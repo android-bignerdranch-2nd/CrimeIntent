@@ -20,6 +20,7 @@ import java.util.List;
 public class CrimeListFragment extends Fragment {
 
     private static final int REQUEST_CRIME = 1;
+    private int mSelectedPosition = 0;
 
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Crime mCrime;
@@ -40,6 +41,8 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
+            mSelectedPosition = (int) view.getTag();
+
             Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
             startActivityForResult(intent, REQUEST_CRIME);
         }
@@ -73,6 +76,7 @@ public class CrimeListFragment extends Fragment {
         public void onBindViewHolder(@NonNull CrimeHolder crimeHolder, int position) {
             Crime crime = mCrimes.get(position);
             crimeHolder.bindCrime(crime);
+            crimeHolder.itemView.setTag(position);
         }
 
         @Override
@@ -119,7 +123,7 @@ public class CrimeListFragment extends Fragment {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemChanged(mSelectedPosition);
         }
 
 
