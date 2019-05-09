@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,8 +52,14 @@ public class TimePickerFragment extends DialogFragment {
                 .inflate(R.layout.dialog_date, null);
 
         mTimePicker = (TimePicker) v.findViewById(R.id.dialog_time_time_picker);
-        mTimePicker.setHour(hour);
-        mTimePicker.setMinute(minute);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mTimePicker.setHour(hour);
+            mTimePicker.setMinute(minute);
+        } else {
+            mTimePicker.setCurrentHour(hour);
+            mTimePicker.setCurrentMinute(minute);
+        }
+
 
 
         return new AlertDialog.Builder(getActivity())
@@ -61,8 +68,13 @@ public class TimePickerFragment extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        int hour = mTimePicker.getHour()
-                        int minute = mTimePicker.getMinute();
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                            int hour = mTimePicker.getHour();
+                            int minute = mTimePicker.getMinute();
+                        } else {
+                            int hour = mTimePicker.getCurrentHour();
+                            int minute = mTimePicker.getCurrentMinute();
+                        }
 
                         Date date = new GregorianCalendar()
                         sendResult(Activity.RESULT_OK, date);
