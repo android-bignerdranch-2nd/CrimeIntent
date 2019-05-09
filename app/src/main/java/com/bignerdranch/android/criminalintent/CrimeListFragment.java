@@ -43,7 +43,7 @@ public class CrimeListFragment extends Fragment {
         public void onClick(View view) {
             mSelectedPosition = (int) view.getTag();
 
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivityForResult(intent, REQUEST_CRIME);
         }
 
