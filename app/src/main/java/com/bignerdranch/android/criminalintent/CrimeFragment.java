@@ -34,6 +34,7 @@ public class CrimeFragment extends Fragment {
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
+    private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
 
     public static CrimeFragment newInstance(UUID crimeId) {
@@ -79,6 +80,7 @@ public class CrimeFragment extends Fragment {
         });
 
         mDateButton = (Button)v.findViewById(R.id.crime_date);
+        mTimeButton = (Button)v.findViewById(R.id.crime_time);
 
         updateDate();
         mDateButton.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +92,14 @@ public class CrimeFragment extends Fragment {
                 dialog.show(manager, DIALOG_DATE);
             }
         });
+
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
         mSolvedCheckBox = (CheckBox)v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.isSolved());
@@ -117,8 +127,10 @@ public class CrimeFragment extends Fragment {
     }
 
     private void updateDate() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 E HH:mm:ss");
-        mDateButton.setText(format.format(mCrime.getDate()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 E");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH시 mm분 ss초");
+        mDateButton.setText(dateFormat.format(mCrime.getDate()));
+        mTimeButton.setText(timeFormat.format(mCrime.getDate()));
     }
 
 
