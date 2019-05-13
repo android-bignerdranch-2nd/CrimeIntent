@@ -16,4 +16,6 @@
     <string name="hide_subtitle">서비타이틀 감추기</string>
     <string name="subtitle_format">%1$s 건</string>
 
+    <string name="remove_crime">범죄 삭제</string>
+
 </resources>
