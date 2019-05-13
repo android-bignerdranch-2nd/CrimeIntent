@@ -139,7 +139,7 @@ public class CrimeFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.menu_item_remove_crime:
                 if (CrimeLab.get(getActivity()).removeCrime(mCrime)) {
-
+                    returnResult();
                 }
                 return true;
             default:
@@ -147,6 +147,14 @@ public class CrimeFragment extends Fragment {
         }
 
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        CrimeLab.get(getActivity())
+                .updateCrime(mCrime);
     }
 
     @Override
