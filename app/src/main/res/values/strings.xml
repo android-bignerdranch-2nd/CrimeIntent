@@ -11,4 +11,9 @@
 
     <string name="date_picker_title">범죄 발생일자 : </string>
 
+    <string name="new_crime">새로운 범죄</string>
+    <string name="show_subtitle">서브타이틀 보기</string>
+    <string name="hide_subtitle">서비타이틀 감추기</string>
+    <string name="subtitle_format">%1$s 건</string>
+
 </resources>
