@@ -126,6 +126,7 @@ public class CrimeListFragment extends Fragment {
 
         if (requestCode == REQUEST_CRIME) {
             // 결과 처리 코드
+            updateUI();
         }
     }
 

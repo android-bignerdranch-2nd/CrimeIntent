@@ -134,6 +134,7 @@ public class CrimeFragment extends Fragment {
             case R.id.menu_item_remove_crime:
                 if (CrimeLab.get(getActivity()).removeCrime(mCrime)) {
                     returnResult();
+                    getActivity().finish();
                 }
                 return true;
             default:
