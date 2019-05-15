@@ -199,11 +199,12 @@ public class CrimeListFragment extends Fragment {
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.setCrimes(crimes);
-            mAdapter.notifyItemChanged(mSelectedPosition);
+//            mAdapter.notifyItemChanged(mSelectedPosition);
+            mAdapter.notifyDataSetChanged();
+
         }
 
         updateSubtitle();
-
     }
 
 
