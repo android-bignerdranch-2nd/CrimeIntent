@@ -4,15 +4,18 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 
 import com.bignerdranch.android.criminalintent.datebase.CrimeBaseHelper;
 import com.bignerdranch.android.criminalintent.datebase.CrimeCursorWrapper;
 import com.bignerdranch.android.criminalintent.datebase.CrimeDbSchema;
 import com.bignerdranch.android.criminalintent.datebase.CrimeDbSchema.CrimeTable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.FileHandler;
 
 public class CrimeLab {
 
@@ -115,6 +118,16 @@ public class CrimeLab {
     public int removeCrime(Crime c) {
 
         return mDatabase.delete(CrimeTable.NAME, CrimeTable.Cols.UUID + " = ?", new String[] { c.getId().toString() });
+    }
+
+    public File getPhotoFile(Crime crime) {
+        File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        if (externalFilesDir == null) {
+            return null;
+        }
+
+        return new File(externalFilesDir, crime.getPhotoFilename());
     }
 
 }
