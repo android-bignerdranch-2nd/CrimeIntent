@@ -88,6 +88,8 @@ public class CrimeLab {
         mDatabase.update(CrimeTable.NAME, values,
                 CrimeTable.Cols.UUID + " = ?",
                 new String[] { uuidString });
+
+
     }
 
     private static ContentValues getContentValues(Crime crime) {

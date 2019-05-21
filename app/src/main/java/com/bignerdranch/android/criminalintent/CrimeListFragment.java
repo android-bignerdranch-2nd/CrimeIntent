@@ -1,5 +1,6 @@
 package com.bignerdranch.android.criminalintent;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -49,8 +49,7 @@ public class CrimeListFragment extends Fragment {
         public void onClick(View view) {
             mSelectedPosition = (int) view.getTag();
 
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
-            startActivityForResult(intent, REQUEST_CRIME);
+            mCallBacks.onCrimeSelected(mCrime);
         }
 
         public void bindCrime(Crime crime) {
@@ -98,6 +97,25 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
+    private Callbacks mCallBacks;
+
+    // 호스팅 액티비티에서 구현할 필요가 있는 인터페이스
+
+    public interface Callbacks {
+        void onCrimeSelected(Crime crime);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallBacks = (Callbacks) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallBacks = null;
+    }
 
     @Nullable
     @Override
@@ -155,8 +173,10 @@ public class CrimeListFragment extends Fragment {
             case R.id.menu_item_new_crime:
                 Crime crime = new Crime();
                 CrimeLab.get(getActivity()).addCrime(crime);
-                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
-                startActivity(intent);
+
+                updateUI();
+                mCallBacks.onCrimeSelected(crime);
+
                 return true;
 
             case R.id.menu_item_show_subtitle:
@@ -190,7 +210,7 @@ public class CrimeListFragment extends Fragment {
 
     }
 
-    private void updateUI() {
+    public void updateUI() {
         CrimeLab cirmeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = cirmeLab.getCrimes();
 
